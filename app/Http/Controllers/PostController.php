@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('ajax');
     }
 
     /**
@@ -36,7 +36,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $posts = Post::create($request->all());
+        return response()->json($posts);
     }
 
     /**
@@ -45,7 +46,7 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Post $id)
     {
         //
     }
@@ -56,9 +57,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $post=Post::findOrfail($id);
+        return response()->json($post);
     }
 
     /**
@@ -68,9 +70,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+        $post=Post::findOrFail($id)->update($request->all());
+        return response()->json($post);
     }
 
     /**
@@ -79,8 +82,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
+        return response()->json(['done']);
     }
 }

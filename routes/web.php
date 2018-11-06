@@ -14,5 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/crud', 'PostController@index');
+Route::get('/crud', 'PostController@create');
 Route::resource('/posts', 'PostController');
